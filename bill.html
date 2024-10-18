@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargills Billing</title>
+    <link rel="stylesheet" href="bill.css">
+</head>
+<body>
+    <div class="container">
+        <div class="billing-form">
+            <h1>Cargills Billing</h1>
+            <form id="billing-form">
+                <label for="item-name">Item Name:</label>
+                <input type="text" id="item-name" class="form-input" placeholder="Enter item name" required>
+                
+                <label for="item-price">Single Unit Price (Rs.):</label>
+                <input type="number" id="item-price" class="form-input" placeholder="Enter item price" step="0.01" required>
+                
+                <label for="item-quantity">Quantity:</label>
+                <input type="number" id="item-quantity" class="form-input" placeholder="Enter quantity" required>
+                
+                <button type="button" class="form-button" onclick="addItem()">Add Item</button>
+            </form>
+        </div>
+
+        <div class="bill-summary">
+            <h2>Bill Summary</h2>
+            <div class="summary-table">
+                <div class="table-header">
+                    <div>No</div>
+                    <div>Item Name</div>
+                    <div>Unit Price</div>
+                    <div>Quantity</div>
+                    <div>Sub Total</div>
+                </div>
+                <div id="item-list" class="table-body">
+                    <!-- Items will be added here -->
+                </div>
+                <div id="total-amount" class="table-footer">
+                    Total: Rs. 0
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let total = 0;
+        let itemCount = 0; // Track the number of items
+
+        function addItem() {
+            const name = document.getElementById('item-name').value;
+            const price = parseFloat(document.getElementById('item-price').value);
+            const quantity = parseInt(document.getElementById('item-quantity').value);
+
+            if (name && price && quantity) {
+                itemCount++; // Increment item count
+                const itemList = document.getElementById('item-list');
+                const listItem = document.createElement('div');
+                const itemTotal = (price * quantity).toFixed(0);
+                listItem.innerHTML = `
+                    <div>${itemCount}</div>
+                    <div class="item-name">${name}</div>
+                    <div>Rs.${price.toFixed(0)}/=</div>
+                    <div>${quantity}</div>
+                    <div>Rs.${itemTotal}/=</div>
+                `;
+                itemList.appendChild(listItem);
+
+                total += price * quantity;
+                document.getElementById('total-amount').textContent = `Total: Rs.${total.toFixed(0)}/=`;
+
+                // Clear input fields and refocus
+                document.getElementById('item-name').value = '';
+                document.getElementById('item-price').value = '';
+                document.getElementById('item-quantity').value = '';
+                document.getElementById('item-name').focus(); // Set focus back to the first input
+            }
+        }
+
+        // Add keyboard navigation for the form
+        document.getElementById('billing-form').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent form submission
+                const activeElement = document.activeElement;
+                const inputs = Array.from(this.querySelectorAll('input'));
+
+                const currentIndex = inputs.indexOf(activeElement);
+                if (currentIndex < inputs.length - 1) {
+                    inputs[currentIndex + 1].focus(); // Move to the next input
+                } else {
+                    addItem(); // Add item if it's the last input
+                }
+            } else if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                const activeElement = document.activeElement;
+                const inputs = Array.from(this.querySelectorAll('input'));
+                const currentIndex = inputs.indexOf(activeElement);
+                if (currentIndex < inputs.length - 1) {
+                    inputs[currentIndex + 1].focus(); // Move focus down
+                }
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                const activeElement = document.activeElement;
+                const inputs = Array.from(this.querySelectorAll('input'));
+                const currentIndex = inputs.indexOf(activeElement);
+                if (currentIndex > 0) {
+                    inputs[currentIndex - 1].focus(); // Move focus up
+                }
+            }
+        });
+
+        // Set initial focus to the first input
+        document.getElementById('item-name').focus();
+    </script>
+</body>
+</html>

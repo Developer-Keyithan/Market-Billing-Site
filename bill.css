@@ -1,0 +1,156 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: url('img.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    gap: 20px; /* Space between form and summary */
+    background: #0004;
+    backdrop-filter: blur(8px);
+}
+
+/* Billing Form */
+.billing-form {
+    background: rgba(0, 0, 0, 0.8); /* Black background with slight opacity */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 400px;
+    color: #fff;
+    backdrop-filter: blur(8px);
+}
+
+/* Bill Summary */
+.bill-summary {
+    background: rgba(0, 0, 0, 0.8); /* Black background with slight opacity */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 600px;
+    max-height: 400px; /* Limit the height of the summary */
+    overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Ensure positioning context for sticky elements */
+    backdrop-filter: blur(8px);
+}
+
+/* Table Layout */
+.summary-table {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    overflow: auto;
+}
+
+.table-header, .table-footer {
+    display: grid;
+    grid-template-columns: 50px 1fr 100px 80px 100px;
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 2px solid #555;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-header div, .table-footer div {
+    text-align: center;
+}
+
+.table-body > div {
+    display: grid;
+    grid-template-columns: 50px 1fr 100px 80px 100px;
+    padding: 5px 0;
+    border-bottom: 1px solid #555;
+    text-align: center;
+}
+
+.table-body .item-name {
+    text-transform: capitalize; /* Capitalize first letter of item name */
+}
+
+.table-footer {
+    /* border-top: 2px solid #555; */
+    box-shadow: 0 .4rem .8rem #0009;
+    font-size: 1.2rem;
+    font-weight: bold;
+    position: sticky;
+    bottom: 0;
+    background-color: #222;
+    border-radius: 5px;
+    z-index: 10; /* Ensure it appears above other content */
+    padding: 10px; /* Ensure space around total amount */
+}
+
+/* Scrollbar styles */
+.summary-table::-webkit-scrollbar {
+    width: 12px;
+    visibility: hidden;
+}
+
+.summary-table::-webkit-scrollbar-thumb {
+    background: #555; /* Dark gray scrollbar thumb */
+    border-radius: 10px;
+    visibility: hidden;
+}
+
+.summary-table::-webkit-scrollbar-track {
+    background: #222; /* Darker track for scrollbar */
+    border-radius: 10px;
+    visibility: hidden;
+}
+
+h1, h2 {
+    color: #fff;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc;
+}
+
+.form-input {
+    width: calc(100% - 1px);
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background: #333;
+    color: #fff;
+}
+
+.form-button {
+    padding: 10px;
+    background-color: #090;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-button:hover {
+    background-color: #666;
+}
